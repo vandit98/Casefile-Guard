@@ -4,7 +4,7 @@ Casefile Guard is a Devvit moderation app for repeat modmail harassment, ban-eva
 
 It does not try to be an AI moderator. Its job is narrower: turn repeated abusive modmail into a quiet, reviewable casefile so moderators stop rebuilding the same evidence packet by hand.
 
-## What Ships In V1
+## What It Does
 
 - Watches modmail via Devvit's `onModMail` trigger.
 - Creates a casefile when a configured watch phrase, watched username, or repeated linked sender appears.
@@ -28,7 +28,7 @@ Mods in r/ModSupport repeatedly describe burner accounts spamming modmail, manua
 
 ## Setup
 
-This workspace currently has Node but not `npm` on PATH, so dependencies were not installed here. On a machine with the Devvit CLI toolchain:
+Install dependencies and run the local test suite:
 
 ```sh
 npm install
@@ -66,15 +66,15 @@ Enabled by default, with a bounded excerpt length. Disable this if a community w
 Retention:
 Defaults to 30 days. App review and moderator trust both depend on not storing harassment data indefinitely.
 
-## Pilot Metrics
+## Impact Metrics
 
-For each live test subreddit, collect:
+Casefile Guard is designed to measure practical moderator time savings:
 
 - Number of abusive modmail conversations grouped.
 - Number of linked burner accounts.
 - Time to create an escalation packet before vs after.
 - False positive count.
-- Whether auto-archive stayed disabled or was trusted enough to enable.
+- Whether moderators choose to enable opt-in auto-archive for confirmed repeat senders.
 
 ## Test Status
 
@@ -88,14 +88,3 @@ node --test test/*.test.mjs
 ```
 
 Current local result: 18 passing tests.
-
-## Known V1 Cutline
-
-V1 intentionally avoids:
-
-- External LLMs or AI classification.
-- Cross-subreddit sharing.
-- Automatic admin report submission.
-- Permanent user dossiers.
-
-Those choices keep the app safer for review and easier for moderators to trust.
