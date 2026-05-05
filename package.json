@@ -1,0 +1,24 @@
+{
+  "name": "casefile-guard",
+  "version": "0.1.0",
+  "private": true,
+  "description": "A Devvit mod tool that turns repeat modmail harassment into quiet, reviewable casefiles.",
+  "scripts": {
+    "check": "node --check src/server/casefile-core.js && node --check src/server/storage.js && node --check src/server/index.js",
+    "dev": "devvit playtest",
+    "upload": "devvit upload",
+    "publish": "devvit publish --public",
+    "test": "node --test test/*.test.mjs"
+  },
+  "dependencies": {
+    "@devvit/redis": "latest",
+    "@devvit/web": "latest",
+    "hono": "^4.7.7"
+  },
+  "devDependencies": {
+    "devvit": "latest"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}

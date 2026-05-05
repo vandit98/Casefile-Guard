@@ -1,0 +1,135 @@
+{
+  "$schema": "https://developers.reddit.com/schema/config-file.v1.json",
+  "name": "casefile-guard",
+  "server": {
+    "entry": "src/server/index.js"
+  },
+  "permissions": {
+    "reddit": {
+      "enable": true,
+      "scope": "moderator"
+    },
+    "redis": true
+  },
+  "triggers": {
+    "onAppInstall": "/internal/triggers/app-install",
+    "onAppUpgrade": "/internal/triggers/app-upgrade",
+    "onModMail": "/internal/triggers/modmail",
+    "onPostDelete": "/internal/triggers/delete",
+    "onCommentDelete": "/internal/triggers/delete"
+  },
+  "menu": {
+    "items": [
+      {
+        "label": "Open Casefile Guard",
+        "description": "Show the current casefile digest.",
+        "forUserType": "moderator",
+        "location": "subreddit",
+        "endpoint": "/internal/menu/show-digest"
+      },
+      {
+        "label": "Add author to casefile",
+        "description": "Link this post author to an existing harassment or evasion casefile.",
+        "forUserType": "moderator",
+        "location": ["post", "comment"],
+        "endpoint": "/internal/menu/add-author-to-case"
+      }
+    ]
+  },
+  "forms": {
+    "addAuthorToCase": "/internal/forms/add-author-to-case"
+  },
+  "scheduler": {
+    "tasks": {
+      "daily-retention-cleanup": {
+        "endpoint": "/internal/scheduler/retention-cleanup",
+        "cron": "17 3 * * *"
+      }
+    }
+  },
+  "settings": {
+    "subreddit": {
+      "casefileMode": {
+        "type": "select",
+        "label": "Default response mode",
+        "options": [
+          {
+            "label": "Observe only",
+            "value": "observe"
+          },
+          {
+            "label": "Internal modmail note",
+            "value": "internal-note"
+          }
+        ],
+        "defaultValue": "internal-note"
+      },
+      "autoArchiveConfirmedCases": {
+        "type": "boolean",
+        "label": "Auto-archive modmail after a sender is already linked to an open casefile",
+        "defaultValue": false
+      },
+      "muteArchivedConversations": {
+        "type": "select",
+        "label": "Mute auto-archived conversations",
+        "options": [
+          {
+            "label": "Do not mute",
+            "value": "none"
+          },
+          {
+            "label": "72 hours",
+            "value": "72"
+          },
+          {
+            "label": "7 days",
+            "value": "168"
+          },
+          {
+            "label": "28 days",
+            "value": "672"
+          }
+        ],
+        "defaultValue": "none"
+      },
+      "phraseWatchlist": {
+        "type": "string",
+        "label": "Watch phrases for repeat abuse, separated by commas or new lines",
+        "validationEndpoint": "/internal/settings/validate-phrases",
+        "defaultValue": ""
+      },
+      "usernameWatchlist": {
+        "type": "string",
+        "label": "Known burner or abusive usernames to link automatically, separated by commas or new lines",
+        "validationEndpoint": "/internal/settings/validate-usernames",
+        "defaultValue": ""
+      },
+      "minimumAccountAgeDays": {
+        "type": "number",
+        "label": "Extra signal when a modmail sender account is younger than this many days",
+        "validationEndpoint": "/internal/settings/validate-account-age",
+        "defaultValue": 3
+      },
+      "storeMessageExcerpts": {
+        "type": "boolean",
+        "label": "Store short message excerpts inside casefiles",
+        "defaultValue": true
+      },
+      "maxExcerptCharacters": {
+        "type": "number",
+        "label": "Maximum characters to store per message excerpt",
+        "validationEndpoint": "/internal/settings/validate-excerpt-length",
+        "defaultValue": 220
+      },
+      "retentionDays": {
+        "type": "number",
+        "label": "Delete inactive casefile data after this many days",
+        "validationEndpoint": "/internal/settings/validate-retention",
+        "defaultValue": 30
+      }
+    }
+  },
+  "marketingAssets": {
+    "icon": "assets/icon.png"
+  }
+}
