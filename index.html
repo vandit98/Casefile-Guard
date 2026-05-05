@@ -1,0 +1,113 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Casefile Guard Demo</title>
+    <meta
+      name="description"
+      content="Interactive recording demo for Casefile Guard, a Devvit modmail casefile app."
+    >
+    <link rel="stylesheet" href="./styles.css">
+  </head>
+  <body>
+    <main class="shell">
+      <aside class="sidebar" aria-label="Demo controls">
+        <div class="brand">
+          <img src="./assets/devpost-thumbnail.png" alt="" class="brand-thumb">
+          <div>
+            <h1>Casefile Guard</h1>
+            <p>Modmail evidence, organized automatically</p>
+          </div>
+        </div>
+
+        <section class="control-panel" aria-label="Demo actions">
+          <h2>Demo Flow</h2>
+          <button class="action active" data-step="0" type="button">
+            <span class="key">1</span>
+            First abusive modmail
+          </button>
+          <button class="action" data-step="1" type="button">
+            <span class="key">2</span>
+            Same phrase, new account
+          </button>
+          <button class="action" data-step="2" type="button">
+            <span class="key">3</span>
+            Mod links a confirmed sender
+          </button>
+          <button class="action" data-step="3" type="button">
+            <span class="key">4</span>
+            Summary packet ready
+          </button>
+        </section>
+
+        <section class="settings-panel" aria-label="Safety settings">
+          <h2>Safety Defaults</h2>
+          <div class="setting-row">
+            <span>Auto-archive</span>
+            <strong id="archiveState">Off</strong>
+          </div>
+          <div class="setting-row">
+            <span>Retention</span>
+            <strong>30 days</strong>
+          </div>
+          <div class="setting-row">
+            <span>External AI</span>
+            <strong>None</strong>
+          </div>
+        </section>
+      </aside>
+
+      <section class="workspace" aria-live="polite">
+        <header class="topbar">
+          <div>
+            <p class="eyebrow">r/examplemods modmail</p>
+            <h2 id="sceneTitle">Incoming ban appeal</h2>
+          </div>
+          <div class="status-pill" id="statusPill">Watching modmail</div>
+        </header>
+
+        <section class="grid">
+          <article class="panel modmail-panel">
+            <div class="panel-header">
+              <h3>Modmail</h3>
+              <span id="messageCount">1 message</span>
+            </div>
+            <div class="thread" id="thread"></div>
+          </article>
+
+          <article class="panel case-panel">
+            <div class="panel-header">
+              <h3>Casefile</h3>
+              <span id="caseStatus">CG-0001 open</span>
+            </div>
+            <div class="case-card">
+              <div class="case-head">
+                <div>
+                  <p class="label">Modmail harassment / possible evasion</p>
+                  <h4>Casefile CG-0001</h4>
+                </div>
+                <span class="score" id="eventCount">1 event</span>
+              </div>
+              <div class="accounts">
+                <p>Accounts linked</p>
+                <div id="accounts"></div>
+              </div>
+              <div class="timeline" id="timeline"></div>
+            </div>
+          </article>
+
+          <article class="panel output-panel">
+            <div class="panel-header">
+              <h3>Internal Note</h3>
+              <span id="noteMode">Mod-only</span>
+            </div>
+            <pre id="note"></pre>
+          </article>
+        </section>
+      </section>
+    </main>
+
+    <script src="./app.js"></script>
+  </body>
+</html>
